@@ -24,9 +24,9 @@ public class HouseholdEntity {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "household")
-    private List<ConsumptionEntity> consumption;
-    @PrePersist
-    protected void generateMeterSerialNumber() {
+    private List<ConsumptionEntity> consumptions;
+    @PostPersist
+    public void generateMeterSerialNumber() {
         if (this.meterSerialNumber == null) {
             this.meterSerialNumber = String.format("%06d", id);
         }

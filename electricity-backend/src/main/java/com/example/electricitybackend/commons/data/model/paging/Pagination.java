@@ -13,7 +13,7 @@ public class Pagination {
     public static final Integer DEFAULT_LIMIT = 10;
     public static final Integer DEFAULT_OFFSET = 0;
 
-    private List<Order> sort;
+    private List<OrderCustom> sort;
     private Integer offset;
     private Integer limit;
     private String maxId;

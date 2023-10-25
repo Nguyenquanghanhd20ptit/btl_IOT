@@ -3,13 +3,21 @@ package com.example.electricitybackend.service.household;
 import com.example.electricitybackend.commons.data.entity.HouseholdEntity;
 import com.example.electricitybackend.commons.data.mapper.household.HouseholdMapper;
 import com.example.electricitybackend.commons.data.request.HouseholdRequest;
+import com.example.electricitybackend.commons.data.request.SearchRequest;
+import com.example.electricitybackend.commons.data.response.MessageResponse;
+import com.example.electricitybackend.commons.data.response.PageResponse;
 import com.example.electricitybackend.commons.data.response.household.HouseholdResponse;
+import com.example.electricitybackend.db.postgre.config.SpecificationConfig;
 import com.example.electricitybackend.db.postgre.repository.HouseholdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.electricitybackend.commons.data.constant.ErrorConstant.ID_NOT_EXIST;
@@ -24,11 +32,15 @@ public class HouseholdService {
 
     @Autowired
     private HouseholdMapper householdMapper;
+    @Autowired
+    private SpecificationConfig specificationConfig;
 
-    public ResponseEntity<HouseholdEntity> addHouseHold(HouseholdRequest request){
+    public ResponseEntity<HouseholdResponse> addHouseHold(HouseholdRequest request){
         HouseholdEntity household = householdMapper.toEntity(request);
         HouseholdEntity householdReturn =  householdRepository.save(household);
-        return new ResponseEntity<>(householdReturn, HttpStatus.OK);
+        householdRepository.updateMeterSerialNumber(householdReturn.getId(),householdReturn.getMeterSerialNumber());
+        HouseholdResponse response = householdMapper.toResponse(householdReturn);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     public ResponseEntity<?>  updateHoseHold(Integer id, HouseholdRequest request)  {
@@ -60,6 +72,17 @@ public class HouseholdService {
             return ResponseEntity.badRequest().body(ID_NOT_EXIST);
         }
         householdRepository.deleteById(id);
-        return ResponseEntity.ok("delete success");
+        return ResponseEntity.ok(new MessageResponse().setMessage("delete success"));
+    }
+
+    public ResponseEntity<PageResponse<HouseholdResponse>> search(SearchRequest request) {
+        Specification<HouseholdEntity> searchSpe = specificationConfig.buildSearch(request, HouseholdEntity.class);
+        Pageable pageable = specificationConfig.buildPageable(request, HouseholdEntity.class);
+        List<HouseholdEntity> householdEntitys = householdRepository.findAll(searchSpe, pageable).toList();
+        List<HouseholdResponse> responses = householdMapper.toResponses(householdEntitys);
+        Long total = householdRepository.count(searchSpe);
+        return ResponseEntity.ok(new PageResponse<HouseholdResponse>()
+                .setItems(responses)
+                .setTotal(total));
     }
 }

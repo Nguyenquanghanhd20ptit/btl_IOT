@@ -1,6 +1,6 @@
 package com.example.electricitybackend.config.pageable;
 
-import com.example.electricitybackend.commons.data.model.paging.Pageable;
+import com.example.electricitybackend.commons.data.model.paging.PageableCustom;
 import com.example.electricitybackend.commons.data.model.paging.PageableParamParser;
 import com.example.electricitybackend.config.annotation.PageableRequest;
 import org.springframework.core.MethodParameter;
@@ -19,7 +19,7 @@ public class PageableHeaderArgumentResolver implements HandlerMethodArgumentReso
     }
 
     @Override
-    public Pageable resolveArgument(
+    public PageableCustom resolveArgument(
             MethodParameter methodParameter,
             ModelAndViewContainer modelAndViewContainer,
             NativeWebRequest nativeWebRequest,

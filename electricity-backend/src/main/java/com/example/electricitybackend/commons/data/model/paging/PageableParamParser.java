@@ -17,23 +17,23 @@ public class PageableParamParser {
     public PageableParamParser() {
     }
 
-    public Class<Pageable> type() {
-        return Pageable.class;
+    public Class<PageableCustom> type() {
+        return PageableCustom.class;
     }
 
-    public static Pageable parser(Map<String, String[]> parameters) {
-        Pageable pageable = new Pageable();
-        int page = Pageable.DEFAULT_PAGE;
+    public static PageableCustom parser(Map<String, String[]> parameters) {
+        PageableCustom pageable = new PageableCustom();
+        int page = PageableCustom.DEFAULT_PAGE;
         if (parameters.containsKey("page") && !isEmpty(parameters.get("page")[0])) {
-            page = NumberUtils.toInt(parameters.get("page")[0], Pageable.DEFAULT_PAGE);
+            page = NumberUtils.toInt(parameters.get("page")[0], PageableCustom.DEFAULT_PAGE);
         }
         pageable.setPage(page);
 
-        int pageSize = Pageable.DEFAULT_PAGE_SIZE;
+        int pageSize = PageableCustom.DEFAULT_PAGE_SIZE;
         if (parameters.containsKey("page_size") && !isEmpty(parameters.get("page_size")[0])) {
-            pageSize = NumberUtils.toInt(parameters.get("page_size")[0], Pageable.DEFAULT_PAGE_SIZE);
+            pageSize = NumberUtils.toInt(parameters.get("page_size")[0], PageableCustom.DEFAULT_PAGE_SIZE);
         }
-        pageSize = pageSize < 0 ? Pageable.MAXIMUM_PAGE_SIZE : pageSize;
+        pageSize = pageSize < 0 ? PageableCustom.MAXIMUM_PAGE_SIZE : pageSize;
         pageable.setPageSize(pageSize);
 
 
@@ -43,13 +43,13 @@ public class PageableParamParser {
         }
         pageable.setOffset(NumberUtils.toInt(offset, (page - 1) * pageSize));
         if (parameters.containsKey("sort") && !isEmpty(parameters.get("sort")[0])) {
-            List<Order> orders = getOrder(parameters.get("sort"));
+            List<OrderCustom> orders = getOrder(parameters.get("sort"));
             if (!orders.isEmpty()) pageable.setSort(orders);
         }
         return pageable;
     }
 
-    private static List<Order> getOrder(String[] orders) {
+    private static List<OrderCustom> getOrder(String[] orders) {
         return orders == null ?
                 null :
                 Stream.of(orders)
@@ -59,14 +59,14 @@ public class PageableParamParser {
                         .collect(toList());
     }
 
-    private static Order getOrder(String order) {
+    private static OrderCustom getOrder(String order) {
         String[] arr = order.split(",");
         if (arr.length == 1) {
-            return new Order(arr[0], Order.Direction.desc.name());
+            return new OrderCustom(arr[0], OrderCustom.Direction.desc.name());
         } else if (arr.length != 2) {
             return null;
         } else {
-            return new Order(arr[0], arr[1].toLowerCase());
+            return new OrderCustom(arr[0], arr[1].toLowerCase());
         }
     }
 }

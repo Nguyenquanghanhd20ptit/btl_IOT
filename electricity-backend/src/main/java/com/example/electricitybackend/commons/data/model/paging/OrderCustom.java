@@ -5,14 +5,14 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class Order {
+public class OrderCustom {
     private String property;
     private String direction;
 
-    public Order() {
+    public OrderCustom() {
     }
 
-    public Order(String property, String direction) {
+    public OrderCustom(String property, String direction) {
         this.property = property;
         this.direction = direction;
     }
