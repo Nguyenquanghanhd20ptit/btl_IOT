@@ -51,7 +51,7 @@ public class ConsumptionService {
 
     public ResponseEntity<?> extractBill(Integer householdId){
         Optional<Integer> opt = consumptionRepository.findMaxConsumptionId(householdId);
-        if(opt.isEmpty()) ResponseEntity.internalServerError().body("Hộ gia đình này chưa tiêu thụ điện ");
+        if(opt.isEmpty()) return ResponseEntity.internalServerError().body("Hộ gia đình này chưa tiêu thụ điện ");
         ConsumptionEntity consumption = consumptionRepository.findById(opt.get()).get();
         BillResponse response = billMapper.toResponse(consumption);
         return ResponseEntity.ok(response);
