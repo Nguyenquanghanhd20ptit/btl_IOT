@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 public class ConsumptionRequest {
     private String meterSerialNumber;
-    private String currentReading;
+    private Double currentReading;
     private Double electricityRate;
     private String imageUrl;
-    private LocalDateTime electricityMonth;
+    private Long electricityMonth;
 
 }

@@ -26,8 +26,8 @@ public class ConsumptionEntity {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @ManyToOne
     @JoinColumn(name = "household_id")
+    @ManyToOne(targetEntity = HouseholdEntity.class, fetch = FetchType.EAGER)
     private HouseholdEntity household;
 
 }

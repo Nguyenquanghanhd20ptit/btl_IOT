@@ -2,6 +2,7 @@ package com.example.electricitybackend.service.household;
 
 import com.example.electricitybackend.commons.data.entity.HouseholdEntity;
 import com.example.electricitybackend.commons.data.mapper.household.HouseholdMapper;
+import com.example.electricitybackend.commons.data.model.Filter;
 import com.example.electricitybackend.commons.data.request.HouseholdRequest;
 import com.example.electricitybackend.commons.data.request.SearchRequest;
 import com.example.electricitybackend.commons.data.response.MessageResponse;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,4 +87,30 @@ public class HouseholdService {
                 .setItems(responses)
                 .setTotal(total));
     }
+    public ResponseEntity<?> drawChart(Integer id,  SearchRequest request){
+        Optional<HouseholdEntity> opt = householdRepository.findById(id);
+        if(opt.isEmpty()) return  ResponseEntity.internalServerError().body(ID_NOT_EXIST);
+        addFilter(id, request);
+        Specification<HouseholdEntity> searchSpe = specificationConfig.buildSearch(request, HouseholdEntity.class);
+        List<HouseholdEntity> householdEntitys = householdRepository.findAll(searchSpe);
+        List<HouseholdResponse> responses = householdMapper.toResponses(householdEntitys);
+        return ResponseEntity.ok(responses);
+    }
+
+    private void addFilter(Integer id, SearchRequest request) {
+        Filter filter = new Filter()
+                .setName("id")
+                .setOperation("eq")
+                .setValue(id);
+        if(request.getFilters() != null ){
+            request.getFilters().add(filter);
+        }
+        else{
+            List<Filter> filters = new ArrayList<>();
+            filters.add(filter);
+            request.setFilters(filters);
+        }
+    }
+
+
 }

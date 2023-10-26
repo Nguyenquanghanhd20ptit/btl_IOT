@@ -1,8 +1,7 @@
 package com.example.electricitybackend.commons.data.response.consumption;
 
 import com.example.electricitybackend.commons.data.core.CustomLocalDateTimeSerializer;
-import com.example.electricitybackend.commons.data.entity.HouseholdEntity;
-import com.example.electricitybackend.commons.data.response.household.HouseholdResponse;
+import com.example.electricitybackend.commons.data.response.household.ShortHouseholdResponse;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -13,10 +12,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
-public class ConsumptionResponse {
-
+public class BillResponse {
     private Integer id;
-    private Integer householdId;
     private String meterSerialNumber;
     private Double currentReading;
     private Double previousReading;
@@ -30,4 +27,5 @@ public class ConsumptionResponse {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     private LocalDateTime createdAt;
+    private ShortHouseholdResponse household;
 }

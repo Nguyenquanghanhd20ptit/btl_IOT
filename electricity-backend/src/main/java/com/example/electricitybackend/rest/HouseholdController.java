@@ -67,4 +67,14 @@ public class HouseholdController {
     public ResponseEntity<?> search(@RequestBody SearchRequest request){
         return householdService.search(request);
     }
+
+    @Operation(summary = "vẽ biểu đồ cho 1 hộ gia đình")
+    @ApiResponse(responseCode = "200", description = "vẽ biểu đồ cho 1 hộ gia đình",
+            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = List.class))})
+    @ApiResponse(responseCode = "400", description = "bad-request", content = @Content)
+    @PostMapping("/chart/{id}")
+    public ResponseEntity<?> drawChart(@PathVariable("id") Integer id ,
+                                       @RequestBody SearchRequest request){
+        return householdService.drawChart(id,request);
+    }
 }
