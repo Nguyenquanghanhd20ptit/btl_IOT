@@ -1,7 +1,14 @@
+
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
+
+#
+# Package stage
+#
 FROM openjdk:11.0-jdk
-ENV TZ "Asia/Ho_Chi_Minh"
-RUN rm -rf /var/cache/apk/*
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} /usr/app/
+COPY --from=build target/*.jar /usr/app/app.jar
 WORKDIR /usr/app
-ENTRYPOINT exec java $JAR_OPTS -jar $JAR_ARGS electricity-backend-0.0.1-SNAPSHOT.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/usr/app/app.jar"]
