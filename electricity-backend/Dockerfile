@@ -1,14 +1,15 @@
 
-FROM maven:3.6.0-jdk-11-slim AS build
-COPY src /home/app/src
-COPY pom.xml /home/app
-RUN mvn clean install -DskipTests
 
-#
-# Package stage
-#
-FROM openjdk:11.0-jdk
-COPY --from=build /home/app/target/electricity-backend-0.0.1-SNAPSHOT.jar /usr/app/app.jar
+
+# Stage 1: Build ứng dụng
+FROM maven:3.6-jdk-11 AS build
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean install
+
+# Stage 2: Tạo hình ảnh chứa ứng dụng đã build
+FROM openjdk:11
+COPY --from=build target/*.jar /usr/app/app.jar
 WORKDIR /usr/app
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/app/app.jar"]
+CMD ["java", "-jar", "app.jar"]
