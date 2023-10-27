@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "consumption")
 public class ConsumptionEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String meterSerialNumber;
     private Double currentReading;
@@ -26,8 +26,8 @@ public class ConsumptionEntity {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @ManyToOne(targetEntity = HouseholdEntity.class)
     @JoinColumn(name = "household_id")
-    @ManyToOne(targetEntity = HouseholdEntity.class, fetch = FetchType.EAGER)
     private HouseholdEntity household;
 
 }

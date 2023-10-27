@@ -20,7 +20,6 @@ public class HouseholdResponse {
     private String address;
     private String phoneNumber;
     private String meterSerialNumber;
-    private List<ShortConsumptionResponse> consumptions;
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     private LocalDateTime createdAt;

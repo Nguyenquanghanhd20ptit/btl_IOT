@@ -16,6 +16,6 @@ public abstract class HouseholdMapper extends AbsMapper<HouseholdRequest, Househ
     protected ShortConsumptionMapper consumpitonMapper;
 
     @Override
-    @Mapping(target = "consumptions", expression = "java(consumpitonMapper.toResponses(entity.getConsumptions()))")
+//    @Mapping(target = "consumptions", expression = "java(consumpitonMapper.toResponses(entity.getConsumptions()))")
     public abstract HouseholdResponse toResponse(HouseholdEntity entity);
 }
