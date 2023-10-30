@@ -45,7 +45,8 @@ public class ConsumptionService {
         }
         consumptionEntity.setHousehold(new HouseholdEntity().setId(household.getId()));
         ConsumptionEntity consumptionReturn  = consumptionRepository.save(consumptionEntity);
-        ConsumptionResponse response = consumpitonMapper.toResponse(consumptionReturn);
+        HouseholdEntity householdEntity = householdRepository.findById(consumptionReturn.getHousehold().getId()).get();
+        BillResponse response = billMapper.toResponse(consumptionReturn.setHousehold(householdEntity));
         return ResponseEntity.ok(response);
     }
 
