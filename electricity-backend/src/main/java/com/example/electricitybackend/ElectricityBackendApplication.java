@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ElectricityBackendApplication {
-
+    public String POST = System.getenv("POST");
     public static void main(String[] args) {
         SpringApplication.run(ElectricityBackendApplication.class, args);
     }
