@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CHART</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-left: 50px;
+        }
+
+        .logo {
+            width: 100px;
+        }
+
+        .slogan h1 {
+            font-size: 32px;
+            margin-left: 30px;
+        }
+
+        .year-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .year-dropdown {
+            display: flex;
+            align-items: center;
+        }
+
+        .year-dropdown label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .year-dropdown select {
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        .year-dropdown button {
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .total-consumption {
+            font-size: 15px;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .chart-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .chart-name {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="images/EVN1.png" alt="EVN Logo">
+            </div>
+            <div class="slogan">
+                <h1>Thống kê tiền điện</h1>
+            </div>
+        </div>
+        <div class="year-options">
+            <div class="year-dropdown">
+                <label for="year">Chọn năm:</label>
+                <select id="year">
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <!-- Add more years as needed -->
+                </select>
+                <button onclick="updateChart()">Xem biểu đồ</button>
+            </div>
+            <div class="total-consumption">Tổng lượng điện tiêu thụ trong năm: <span id="totalConsumption">0 kWh</span></div>
+        </div>
+        <div class="chart-container">
+            <canvas id="myChart" width="400" height="200"></canvas>
+            <div class="chart-name">Biểu đồ tiêu thụ điện theo tháng năm XXXX</div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var chartData = {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            datasets: [{
+                label: 'Số điện',
+                data: [8, 10, 5, 6, 5, 6, 7, 7, 8, 9, 8, 6],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var chartOptions = {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        };
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart;
+
+        function updateChart() {
+            var selectedYear = document.getElementById('year').value;
+            // Update or fetch data for the selected year and update the chart data
+            // Example: chartData.datasets[0].data = [updated data for selected year];
+
+            if (myChart) {
+                myChart.destroy(); // Destroy the existing chart
+            }
+
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: chartOptions
+            });
+
+            // Calculate and update total consumption (example: sum of data values)
+            var totalConsumption = chartData.datasets[0].data.reduce((a, b) => a + b, 0);
+            document.getElementById('totalConsumption').textContent = totalConsumption + " kWh";
+        }
+
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: chartOptions
+        });
+    </script>
+</body>
+</html>
