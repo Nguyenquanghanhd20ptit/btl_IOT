@@ -176,4 +176,11 @@ function drawChart(apiData) {
     if(chartLabels.length > 0) document.getElementById("chart-name").innerHTML = "Biểu đồ tiêu thụ điện từ " + chartLabels[0] + " đến " + chartLabels[chartLabels.length - 1];
     else document.getElementById("chart-name").innerHTML = "Không có dữ liệu";
 
+    var  totalConsumption = 0
+
+    chartDataValues.forEach(item =>{
+        totalConsumption += item;
+    });
+    document.getElementById('totalConsumption').innerHTML = totalConsumption + " kWh";
+    console.log(totalConsumption)
 }
