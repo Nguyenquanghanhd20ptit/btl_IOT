@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>CHART</title>
     <link rel="stylesheet" href="/css/thongke.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -16,42 +17,32 @@
             </div>
         </div>
         <div class="control">
-            <div class="year-options">
-                <div class="year-dropdown">
-                    <label for="year">Chọn năm:</label>
-                    <select id="year">
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <!-- Add more years as needed -->
-                    </select>
-                    <button onclick="updateChart()">Xem thống kê</button>
-                </div>
-            </div>
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên">
-                <button onclick="searchByName()">Tìm kiếm</button>
-                <button onclick="openModal()">Thêm người dùng mới</button>
+                <button onclick="searchHouseholds()">Tìm kiếm</button>
             </div>
+            <div class="add-household"> <button onclick="openModal()">Thêm hộ gia mới</button></div>
         </div>
 
         <div class="chart-container">
-            <h2 class="chart-name">Danh sách người dùng</h2>
+            <div class="total-household">
+                <h2 class="chart-name">Danh sách hộ gia đình</h2>
+            <div id="total"> <h2>total</h2></div>
+            </div>
             <table id="userTable">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Tên</th>
+                        <th>Công Tơ Số</th>
+                        <th>Họ Và Tên</th>
                         <th>Số Điện Thoại</th>
-                        <th>Email</th>
-                        <th>Tổng Lượng Điện Tiêu Thụ</th>
-                        <!-- Thêm các thuộc tính khác tại đây -->
+                        <th>Địa chỉ</th>
+                        <th>Ngày Tạo</th>
+                        <th>Tùy chọn</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Dữ liệu người dùng sẽ được thêm bằng JavaScript -->
-                </tbody>
+                <tbody id="households-body"></tbody>
             </table>
+            <div id="pagination"></div>
         </div>
     </div>
 
@@ -67,94 +58,9 @@
             <button onclick="closeModal()">Hủy</button>
         </div>
     </div>
-
-    <script>
-        const userData = [
-            { id: 1, name: "John Doe", phone: "123-456-7890", email: "john@example.com", consumption: 350 },
-            { id: 2, name: "Jane Smith", phone: "987-654-3210", email: "jane@example.com", consumption: 420 },
-            { id: 3, name: "Mary Johnson", phone: "555-123-4567", email: "mary@example.com", consumption: 280 }
-            // Thêm dữ liệu người dùng khác tại đây
-        ];
-
-        let nextUserId = 4;
-
-        function updateChart() {
-            // Đoạn mã JavaScript để cập nhật bảng ở đây
-            // Ví dụ:
-            const year = document.getElementById("year").value;
-            const userTable = document.getElementById("userTable").getElementsByTagName('tbody')[0];
-            
-            // Xóa dữ liệu cũ
-            while (userTable.firstChild) {
-                userTable.removeChild(userTable.firstChild);
-            }
-            
-            // Cập nhật dữ liệu dựa trên năm được chọn
-            userData.forEach(function(user) {
-                const row = userTable.insertRow();
-                row.insertCell(0).textContent = user.id;
-                row.insertCell(1).textContent = user.name;
-                row.insertCell(2).textContent = user.phone;
-                row.insertCell(3).textContent = user.email;
-                row.insertCell(4).textContent = user.consumption + " kWh";
-                // Thêm các ô dữ liệu cho các thuộc tính khác tại đây
-            });
-        }
-
-        function searchByName() {
-            const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-            const userTable = document.getElementById("userTable").getElementsByTagName('tbody')[0];
-
-            // Xóa dữ liệu cũ
-            while (userTable.firstChild) {
-                userTable.removeChild(userTable.firstChild);
-            }
-
-            // Tìm kiếm và cập nhật bảng với kết quả tìm kiếm
-            userData.forEach(function(user) {
-                if (user.name.toLowerCase().includes(searchTerm)) {
-                    const row = userTable.insertRow();
-                    row.insertCell(0).textContent = user.id;
-                    row.insertCell(1).textContent = user.name;
-                    row.insertCell(2).textContent = user.phone;
-                    row.insertCell(3).textContent = user.email;
-                    row.insertCell(4).textContent = user.consumption + " kWh";
-                    // Thêm các ô dữ liệu cho các thuộc tính khác tại đây
-                }
-            });
-        }
-
-        function openModal() {
-            document.getElementById("myModal").style.display = "block";
-        }
-
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-        }
-
-        function addNewUser() {
-            const name = document.getElementById("newUserName").value;
-            const phone = document.getElementById("newUserPhone").value;
-            const email = document.getElementById("newUserEmail").value;
-            const consumption = document.getElementById("newUserConsumption").value;
-
-            if (name && phone && email && consumption) {
-                const newUser = {
-                    id: nextUserId,
-                    name: name,
-                    phone: phone,
-                    email: email,
-                    consumption: parseInt(consumption)
-                };
-                userData.push(newUser);
-                nextUserId++;
-
-                updateChart();
-                closeModal();
-            } else {
-                alert("Vui lòng điền đầy đủ thông tin người dùng.");
-            }
-        }
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="/js//constant.js"></script>
+    <script src="/js/thongke.js"> </script>
 </body>
 </html>

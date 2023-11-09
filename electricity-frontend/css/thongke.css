@@ -97,6 +97,23 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
+.add-household {
+    margin-top: 20px;
+    display: flex;
+    text-align: right;
+    align-items: center;
+    margin-left: 430px;
+    
+}
+.add-household button {
+    font-size: 16px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 .chart-container {
     margin-top: 20px;
@@ -162,4 +179,74 @@ th {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+.total-household {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 10px;
+}
+
+
+
+#pagination {
+    display: flex;
+    justify-content: center;
+}
+
+#pagination a {
+    display: inline-block;
+    padding: 8px;
+    margin: 0 4px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#pagination a:hover {
+    background-color: #f2f2f2;
+}
+
+.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* menu */
+
+.action-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.action-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-content {
+     /* display: none; */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1; 
+}
+
+.menu-content-button{
+    display: none;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.menu-content button:hover {
+    background-color: #ddd;
 }

@@ -61,7 +61,9 @@ public class SpecificationConfig {
             List<Predicate> predicatesFilters = new ArrayList<>();
             predicatesFilters.add(alwaysTruePredicate(criteriaBuilder));
             List<Filter> filters = request.getFilters();
-            if (isEmpty(filters)) return query.getRestriction();
+            if (isEmpty(filters)) {
+                return criteriaBuilder.or(predicates.toArray(new Predicate[0]));
+            }
             Map<String, Field> fieldFroingerKeyMap = getFieldFroingerKey(tClass, root);
             Map<String, Path<?>> pathFroingerKeyMap = getRootFroingerKey(tClass, root);
             Collection<String> froingerKeyName = fieldFroingerKeyMap.keySet();
