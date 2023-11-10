@@ -47,17 +47,18 @@
     </div>
 
     <!-- Modal dialog for adding a new user -->
+    <!-- Modal dialog for adding a new household -->
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <h3>Thêm người dùng mới</h3>
-            <input type="text" id="newUserName" placeholder="Tên người dùng">
-            <input type="text" id="newUserPhone" placeholder="Số điện thoại">
-            <input type="text" id="newUserEmail" placeholder="Email">
-            <input type="text" id="newUserConsumption" placeholder="Tổng lượng điện tiêu thụ (kWh)">
-            <button onclick="addNewUser()">Thêm</button>
+            <h3>Thêm hộ gia đình mới</h3>
+            <input type="text" id="newHouseholdName" placeholder="Tên hộ gia đình">
+            <input type="text" id="newHouseholdPhone" placeholder="Số điện thoại">
+            <input type="text" id="newHouseholdAddress" placeholder="Địa chỉ">
+            <button onclick="addNewHousehold()">Thêm</button>
             <button onclick="closeModal()">Hủy</button>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="/js//constant.js"></script>
