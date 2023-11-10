@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/invoice.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+      integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer">
+    </script>
+    <title>Hóa Đơn</title>
+  </head>
+  <body>
+    <div id="invoice">
+      <div class="header">
+        <h1>Hóa Đơn Tiền điện</h1>
+        <div id="date"></div>
+      </div>
+      <div class="customer-info" id="customer-info"></div>
+      <div class="invoice-details">
+        <h2>Chi tiết hóa đơn</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Loại điện</th>
+              <th>Số điện</th>
+              <th>Đơn giá</th>
+              <th>Số tiền</th>
+              <th>Tổng thuế</th>
+            </tr>
+          </thead>
+          <tbody id="invoice-body"></tbody>
+        </table>
+      </div>
+      <div class="total" id="total-money"></div>
+    </div>
+    <button onclick="downloadInvoice()">Tải xuống Hóa Đơn</button>
+    <script src="/js/constant.js"></script>
+    <script src="/js/invoice.js"></script>
+  </body>
+</html>

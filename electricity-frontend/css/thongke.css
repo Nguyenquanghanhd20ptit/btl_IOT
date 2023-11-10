@@ -229,7 +229,7 @@ th {
 }
 
 .menu-content {
-     /* display: none; */
+    display: none; 
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
@@ -238,7 +238,7 @@ th {
 }
 
 .menu-content-button{
-    display: none;
+    display: block;
     width: 100%;
     padding: 10px;
     text-align: left;

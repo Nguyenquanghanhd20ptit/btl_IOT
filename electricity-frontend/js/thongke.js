@@ -63,11 +63,11 @@ function displayData(data) {
       <td>${household.phone_number}</td>
       <td>${household.address}</td>
       <td>${household.created_at}</td>
-      <td><div class="action-menu" onclick="toggleMenu(event)">
+      <td><div class="action-menu" onclick="toggleMenu(${household.id})">
       <button class="action-button">
           <i class="fas fa-cogs"></i>
       </button>
-    <div class="menu-content">
+    <div class="menu-content" id=menu-content${household.id}>
       <button class="menu-content-button" onclick="edit(${household.id})"><i class="fas fa-pencil-alt"></i> Sửa</button>
       <button class="menu-content-button" onclick="deleteItem(${household.id})"><i class="fas fa-trash"></i> Xóa</button>
       <button class="menu-content-button" onclick="exportInvoice(${household.id})"><i class="fas fa-file-export"></i> Xuất hóa đơn</button>
@@ -131,9 +131,10 @@ function addNewUser() {
 }
 
 
-function toggleMenu() {
-    const menu = document.querySelector('.menu-content-button');
-    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+function toggleMenu(householdId) {
+    console.log("fđfdffd"+householdId);
+    const menu = document.querySelector(`#menu-content${householdId}`);
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
 }
 function edit(householdId) {
   }
@@ -142,6 +143,8 @@ function edit(householdId) {
   }
   
   function exportInvoice(householdId) {
+    var newURL = "http://" + window.location.host + `/html/invoice.html?id=${householdId}`;
+    window.location.href = newURL;
   }
   
   function viewChart(householdId) {
