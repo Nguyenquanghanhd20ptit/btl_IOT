@@ -173,3 +173,70 @@ function edit(householdId) {
     var newURL = "http://" + window.location.host + `/html/householdChart.html?id=${householdId}`;
     window.location.href = newURL;
   }
+
+
+  //Add user
+
+  function addNewHousehold() {
+    const householdName = document.getElementById("newHouseholdName").value;
+    const householdPhone = document.getElementById("newHouseholdPhone").value;
+    const householdAddress = document.getElementById("newHouseholdAddress").value;
+
+    if (householdName && householdPhone && householdAddress) {
+        const requestBody = {
+            "household_name": householdName,
+            "address": householdAddress,
+            "phone_number": householdPhone
+        };
+
+        fetch(hostConstant + '/api/v1/household', {
+            method: 'POST',
+            body: JSON.stringify(requestBody),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(newHousehold => {
+            // Thêm hộ gia đình mới vào danh sách và cập nhật trang
+            updateHouseholdsList(newHousehold);
+            closeModal();
+        })
+        .catch(error => console.error('Error adding new household:', error));
+    } else {
+        alert("Vui lòng điền đầy đủ thông tin hộ gia đình.");
+    }
+}
+
+function updateHouseholdsList(newHousehold) {
+  const householdsBody = document.getElementById('households-body');
+  
+  // Tạo một dòng mới trong bảng
+  const householdRow = document.createElement('tr');
+  householdRow.innerHTML = `
+    <td>${newHousehold.meter_serial_number}</td>
+    <td>${newHousehold.household_name}</td>
+    <td>${newHousehold.phone_number}</td>
+    <td>${newHousehold.address}</td>
+    <td>${newHousehold.created_at}</td>
+    <td>
+      <div class="action-menu" onclick="toggleMenu(${newHousehold.id})">
+        <button class="action-button" data-household-id="${newHousehold.id}">
+          <i class="fas fa-cogs"></i>
+        </button>
+        <div class="menu-content" id=menu-content${newHousehold.id}>
+          <button class="menu-content-button" onclick="edit(${newHousehold.id})"><i class="fas fa-pencil-alt"></i> Sửa</button>
+          <button class="menu-content-button" onclick="deleteItem(${newHousehold.id})"><i class="fas fa-trash"></i> Xóa</button>
+          <button class="menu-content-button" onclick="exportInvoice(${newHousehold.id})"><i class="fas fa-file-export"></i> Xuất hóa đơn</button>
+          <button class="menu-content-button" onclick="viewChart(${newHousehold.id})"><i class="fas fa-chart-bar"></i> Xem biểu đồ</button>
+        </div>
+      </div>
+    </td>`;
+
+  // Thêm dòng mới vào đầu danh sách
+  householdsBody.insertBefore(householdRow, householdsBody.firstChild);
+  
+  // Cập nhật tổng số hộ gia đình
+  const total = document.getElementById('total');
+  total.textContent = 'Tổng số hộ gia đình: ' + (parseInt(total.textContent.split(':')[1]) + 1);
+}
