@@ -152,16 +152,125 @@ function closeAllMenus() {
     });
 }
 
-function toggleMenu(householdId) {
-    console.log("fđfdffd"+householdId);
-    const menu = document.querySelector(`#menu-content${householdId}`);
-    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+function openEditModal() {
+  document.getElementById("editModal").style.display = "block";
 }
+
+function closeEditModal() {
+  document.getElementById("editModal").style.display = "none";
+}
+
+
 function edit(householdId) {
-  }
+    // Kiểm tra xem householdId có tồn tại hay không
+    if (!householdId) {
+        console.error('Invalid householdId:', householdId);
+        return;
+    }
+
+    // Gọi hàm để lấy thông tin hộ gia đình   
+getHouseholdInfo(householdId);
+}
+
+function getHouseholdInfo(householdId) {
+    // Gọi API để lấy thông tin hộ gia đình
+        fetch(hostConstant+'/api/v1/household/${householdId}')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(existingHousehold => {
+                // Kiểm tra xem dữ liệu đã được trả về hay không
+                if (existingHousehold) {
+                    // Hiển thị thông tin lên modal
+                    document.getElementById("editUserName").value = existingHousehold.household_name;
+                    document.getElementById("editUserPhone").value = existingHousehold.phone_number;
+                    document.getElementById("editUserAddress").value = existingHousehold.address;
   
-  function deleteItem(householdId) {
+      // Cập nhật tiêu đề và nút của modal
+      const editModalContent = document.getElementById("editModal").getElementsByClassName("modal-content")[0];
+      editModalContent.getElementsByTagName("h4")[0].textContent = "Chỉnh sửa thông tin hộ gia đình";
+
+      const updateButton = editModalContent.getElementsByTagName("button")[0];
+      updateButton.textContent = "Cập nhật";
+      updateButton.onclick = function () {
+          
+         
+performUpdate(householdId);
+      };
+
+      openEditModal();
+  } else {
+      console.error('Existing Household Data is undefined or null.');
   }
+})
+.catch(error => {
+  console.error('Error fetching household data:', error.message);
+  
+});
+}
+ // cập nhật thông tin hộ gia đình
+function performUpdate(householdId) {
+  const newName = document.getElementById("editUserName").value;
+  const newPhone = document.getElementById("editUserPhone").value;
+  const newAddress = document.getElementById("editUserAddress").value;
+ 
+  if (newName && newPhone && newAddress) {
+      const updatedHousehold = {
+          id: householdId,
+          household_name: newName,
+          phone_number: newPhone,
+          address: newAddress,
+      };
+
+      fetch(hostConstant+'/api/v1/household/update/${householdId}', {
+          method: 'PUT',
+          body: JSON.stringify(updatedHousehold),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('HTTP error! Status: ${response.status}');
+          }
+          return response.json();
+      })
+      .then(data => {
+          console.log('Household updated successfully', data);
+
+          searchHouseholds(currentPage);
+
+          closeEditModal();
+      })
+      .catch(error => {
+          console.error('Error updating household:', error.message);
+          // Xử lý lỗi và thông báo cho người dùng nếu cần
+      });
+  } else {
+      alert("Vui lòng điền đầy đủ thông tin hộ gia đình.");
+  }
+} 
+
+function deleteItem(householdId) {
+  if (confirm("Bạn có chắc chắn muốn xóa hộ gia đình này không?")) {
+      fetch(`${hostConstant}/api/v1/household/${householdId}`, {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Household deleted successfully', data);
+          // Cập nhật danh sách sau khi xóa
+          searchHouseholds(currentPage);
+      })
+      .catch(error => console.error('Error deleting household:', error));
+  }
+}
   
   function exportInvoice(householdId) {
     var newURL = "http://" + window.location.host + `/html/invoice.html?id=${householdId}`;
@@ -173,3 +282,8 @@ function edit(householdId) {
     var newURL = "http://" + window.location.host + `/html/householdChart.html?id=${householdId}`;
     window.location.href = newURL;
   }
+  function toggleMenu(householdId) {
+    console.log("fđfdffd"+householdId);
+    const menu = document.querySelector(`#menu-content${householdId}`);
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
