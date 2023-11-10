@@ -64,7 +64,7 @@ function displayData(data) {
       <td>${household.address}</td>
       <td>${household.created_at}</td>
       <td><div class="action-menu" onclick="toggleMenu(${household.id})">
-      <button class="action-button">
+      <button class="action-button" data-household-id="${household.id}">
           <i class="fas fa-cogs"></i>
       </button>
     <div class="menu-content" id=menu-content${household.id}>
@@ -88,7 +88,7 @@ function displayData(data) {
         }
         pageLink.onclick = () => {
             currentPage = i;
-            fetchOrders(i);
+            searchHouseholds(i);
         }
         pagination.appendChild(pageLink);
     }
@@ -130,6 +130,27 @@ function addNewUser() {
   }
 }
 
+document.addEventListener('mousedown', function (event) {
+  const button = event.target.closest('.action-button');
+  const menuContent = event.target.closest('.menu-content');
+  const menuContentButton = event.target.closest('.menu-content-button');
+  
+  if (button && menuContent) {
+      toggleMenu(button.getAttribute('data-household-id'));
+  } else if(menuContentButton){
+    console.log("chuyen trang");
+  }
+  else {
+      closeAllMenus();
+  }
+});
+
+function closeAllMenus() {
+    const allMenus = document.querySelectorAll('.menu-content');
+    allMenus.forEach(menu => {
+        menu.style.display = 'none';
+    });
+}
 
 function toggleMenu(householdId) {
     console.log("fđfdffd"+householdId);
