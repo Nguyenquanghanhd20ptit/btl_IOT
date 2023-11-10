@@ -45,7 +45,7 @@ public class SpecificationConfig {
     public <T> Specification<T> buildSearch(SearchRequest request, Class<T> tClass) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (request.getKeyword() == null) predicates.add(alwaysTruePredicate(criteriaBuilder));
+            if (StringUtils.isEmpty( request.getKeyword()) ) predicates.add(alwaysTruePredicate(criteriaBuilder));
             List<String> allColums = getAllColumnNames(root);
             List<String> searchColums = request.getSearchColumns() != null ?
                     request.getSearchColumns() : allColums;
