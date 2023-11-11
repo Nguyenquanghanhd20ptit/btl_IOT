@@ -1,16 +1,14 @@
-
-from fastapi import FastAPI, UploadFile, File
-from datetime import datetime
 import base64
 # import pytesseract
-import mysql.connector
 from datetime import datetime
-from PIL import Image
-import numpy as np
-import cv2
 
+import cv2
+import numpy as np
+import requests
+from fastapi import FastAPI, UploadFile, File
 # init ocr
-from paddleocr import PaddleOCR,draw_ocr
+from paddleocr import PaddleOCR
+
 # Paddleocr supports Chinese, English, French, German, Korean and Japanese.
 # You can set the parameter `lang` as `ch`, `en`, `fr`, `german`, `korean`, `japan`
 # to switch the language model in order.
@@ -29,28 +27,23 @@ def string_to_date(date_string):
     date_object = datetime.strptime(date_string, '%d-%m-%Y').date()
     return date_object
 
+def call_post_api(data,api_url):
+    # Đặt tiêu đề 'Content-Type' cho yêu cầu
+    headers = {'Content-Type': 'application/json'}
+
+    # Sử dụng phương thức POST để gửi dữ liệu JSON tới API
+    response = requests.post(api_url, json=data, headers=headers)
+    print(response)
+    print(data)
+
+    # Kiểm tra xem yêu cầu có thành công không
+    if response.status_code == 200:
+        print("Gửi dữ liệu thành công!")
+    else:
+        print("Gửi dữ liệu không thành công. Mã lỗi:", response.status_code)
+
 
 app = FastAPI()
-
-# Kết nối tới MySQL
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="keokasu0",
-    database="invoid"
-)
-
-# Tạo bảng invoice nếu chưa tồn tại
-cursor = db.cursor()
-cursor.execute("""
-    CREATE TABLE IF NOT EXISTS invoice (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        id_user VARCHAR(255),
-        date DATE,
-        total_price FLOAT,
-        image MEDIUMTEXT
-    )
-""")
 
 # API endpoint để xử lý việc upload ảnh hoá đơn
 @app.post("/upload_invoice/")
@@ -62,6 +55,7 @@ async def upload_invoice( file: UploadFile = File(...)):
     # Xử lý ảnh bằng OCR
     result = ocr.ocr(image_cv2, cls=True)
     current_date = string_to_date(result[0][0][1][0])
+    current_datetime = datetime(current_date.year, current_date.month, current_date.day)
     id_user = result[0][1][1][0]
     id_user = id_user[3:]
     total_price = int(result[0][2][1][0])
@@ -69,11 +63,15 @@ async def upload_invoice( file: UploadFile = File(...)):
     
     # Chuyển đổi ảnh sang base64
     encoded_image = base64.b64encode(contents).decode('utf-8')
-    
-    # Lưu thông tin vào database
-    current_date = datetime.now().date()
-    insert_query = "INSERT INTO invoice (id_user, date, total_price, image) VALUES (%s, %s, %s, %s)"
-    cursor.execute(insert_query, (id_user, current_date, total_price, encoded_image))
-    db.commit()
-    
-    return {"id_user": id_user, "date": current_date, "total_price": total_price, "image": encoded_image}
+
+    api_url = 'https://btliot-production.up.railway.app/api/v1/consumption'
+
+    data = {
+        "meter_serial_number": id_user,
+        "current_reading": total_price,
+        "electricity_rate": 4000,
+        "electricity_month": int(current_datetime.timestamp()),
+    }
+
+    call_post_api(data,api_url)
+    return {"id_user": id_user, "date": current_date, "total_price": total_price}
