@@ -13,9 +13,18 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
     text-align: center;
+    
 }
-.control {
-    display: flex;
+
+button {
+    padding: 10px 20px;
+    background-color:  rgb(44, 91, 180);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 15px;
+    border-radius: 10px;
 }
 
 .header {
@@ -25,13 +34,27 @@ body {
     margin-left: 50px;
 }
 
+.header-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+  }
+
+.control {
+    display: flex;
+}
+
+
+
 .logo {
     width: 100px;
 }
 
 .slogan h1 {
-    font-size: 32px;
-    margin-left: 30px;
+    font-size: 30px;
+    margin-top: 75px;
+    border: none;
+    cursor: pointer;
 }
 
 .year-options {
@@ -247,6 +270,146 @@ th {
     cursor: pointer;
 }
 
-.menu-content button:hover {
+.menu-content button:hover {body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 100px;
+}
+
+.slogan h1 {
+    margin: 0;
+}
+
+.control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.search-container {
+    display: flex;
+}
+
+.search-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.search-container button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.add-household button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.chart-container {
+    margin-top: 20px;
+}
+
+.total-household {
+    margin-bottom: 20px;
+}
+
+.chart-name {
+    color: #333;
+}
+
+#total h2 {
+    color: #4CAF50;
+}
+
+#userTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#userTable th, #userTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#userTable th {
+    background-color: #333;
+    color: white;
+}
+
+#pagination {
+    margin-top: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+}
+
+.modal-content h3, .modal-content h4 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-content button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+
     background-color: #ddd;
 }

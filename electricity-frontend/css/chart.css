@@ -22,13 +22,10 @@ body {
     margin-left: 50px;
 }
 
+
+
 .logo {
     width: 100px;
-}
-
-.slogan h1 {
-    font-size: 32px;
-    margin-left: 30px;
 }
 
 .year-options {
@@ -77,4 +74,28 @@ body {
 .chart-name {
     font-size: 18px;
     margin-top: 10px;
+}
+
+
+  .header-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+  }
+
+  .slogan h1 {
+    font-size: 30px;
+    margin-top: 75px;
+    border: none;
+    cursor: pointer;
+}
+  button {
+    padding: 10px 20px;
+    background-color:  rgb(44, 91, 180);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 15px;
+    border-radius: 10px;
 }
