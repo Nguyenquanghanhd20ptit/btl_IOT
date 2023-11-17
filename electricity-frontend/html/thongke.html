@@ -65,6 +65,18 @@
     </div>
 
     <!-- Modal dialog for adding a new user -->
+    <!-- Modal dialog for adding a new household -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h3>Thêm hộ gia đình mới</h3>
+            <input type="text" id="newHouseholdName" placeholder="Tên hộ gia đình">
+            <input type="text" id="newHouseholdPhone" placeholder="Số điện thoại">
+            <input type="text" id="newHouseholdAddress" placeholder="Địa chỉ">
+            <button onclick="addNewHousehold()">Thêm</button>
+            <button onclick="closeModal()">Hủy</button>
+        </div>
+    </div>
+
 
     <div id="editModal" class="modal">
         <div class="modal-content">

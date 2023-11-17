@@ -24,6 +24,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -89,11 +90,13 @@ public class HouseholdService {
         return ResponseEntity.ok(response);
     }
 
+    @Transactional
     public ResponseEntity<?> deleteById(Integer id) {
         Optional<HouseholdEntity> opt = householdRepository.findById(id);
         if (opt.isEmpty()) {
             return ResponseEntity.badRequest().body(ID_NOT_EXIST);
         }
+        consumptionRepository.deleteByHouseholdId(id);
         householdRepository.deleteById(id);
         return ResponseEntity.ok(new MessageResponse().setMessage("delete success"));
     }
