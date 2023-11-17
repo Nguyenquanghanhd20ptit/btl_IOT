@@ -2,6 +2,8 @@ package com.example.electricitybackend.service.household;
 
 import com.example.electricitybackend.commons.data.entity.ConsumptionEntity;
 import com.example.electricitybackend.commons.data.entity.HouseholdEntity;
+import com.example.electricitybackend.commons.data.entity.HouseholdRoleEntity;
+import com.example.electricitybackend.commons.data.entity.RoleEntity;
 import com.example.electricitybackend.commons.data.mapper.consumption.ShortConsumptionMapper;
 import com.example.electricitybackend.commons.data.mapper.household.HouseholdMapper;
 import com.example.electricitybackend.commons.data.model.Filter;
@@ -15,6 +17,7 @@ import com.example.electricitybackend.commons.data.response.household.HouseholdR
 import com.example.electricitybackend.db.postgre.config.SpecificationConfig;
 import com.example.electricitybackend.db.postgre.repository.ConsumptionRepository;
 import com.example.electricitybackend.db.postgre.repository.HouseholdRepository;
+import com.example.electricitybackend.db.postgre.repository.HouseholdRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -27,7 +30,8 @@ import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.example.electricitybackend.commons.data.constant.ErrorConstant.ID_NOT_EXIST;
+import static com.example.electricitybackend.commons.data.constant.ErrorConstant.*;
+import static com.example.electricitybackend.commons.data.constant.RoleConstant.USER_ID;
 import static com.example.electricitybackend.service.utils.ObjectUtils.updateNotNull;
 
 
@@ -45,11 +49,18 @@ public class HouseholdService {
     private ConsumptionRepository consumptionRepository;
     @Autowired
     private ShortConsumptionMapper shortConsumptionMapper;
+    @Autowired
+    private HouseholdRoleRepository householdRoleRepository;
 
-    public ResponseEntity<HouseholdResponse> addHouseHold(HouseholdRequest request) {
+    public ResponseEntity<?> addHouseHold(HouseholdRequest request) {
+        Optional<HouseholdEntity> opt = householdRepository.getHouseholdByUsername(request.getUsername());
+        if(!opt.isEmpty()) return ResponseEntity.internalServerError().body(EXITED_USERNAME);
+        if(!request.getPassword().equals(request.getConfirmPassword())) return ResponseEntity.internalServerError().body(NOT_MATCH_PASSWORD);
         HouseholdEntity household = householdMapper.toEntity(request);
         HouseholdEntity householdReturn = householdRepository.save(household);
         householdRepository.updateMeterSerialNumber(householdReturn.getId(), householdReturn.getMeterSerialNumber());
+        HouseholdRoleEntity householdRoleEntity = setRoleUser(householdReturn);
+        householdRoleRepository.save(householdRoleEntity);
         HouseholdResponse response = householdMapper.toResponse(householdReturn);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -61,7 +72,8 @@ public class HouseholdService {
         }
         HouseholdEntity householdDb = opt.get();
         HouseholdEntity householdSave = householdMapper.toEntity(request);
-        HouseholdEntity householdsaveDb = updateNotNull(householdDb, householdSave);
+        List<String> notUpdateField = List.of("username","password");
+        HouseholdEntity householdsaveDb = updateNotNull(householdDb, householdSave,notUpdateField);
         HouseholdEntity householdReturn = householdRepository.save(householdsaveDb);
         HouseholdResponse response = householdMapper.toResponse(householdReturn);
         return ResponseEntity.ok(response);
@@ -135,7 +147,7 @@ public class HouseholdService {
                                             .setElectricityRate(response.getElectricityRate())
                                             .setElectricityMonth(response.getElectricityMonth())
                                             .setElectricityMonth(response.getElectricityMonth());
-                                }))).entrySet().stream().map(entry -> entry.getValue())
+                                }))).entrySet().stream().map(Map.Entry::getValue)
                 .collect(Collectors.toList());
         Collections.reverse( responses);
         return  ResponseEntity.ok(responses);
@@ -154,6 +166,13 @@ public class HouseholdService {
             filters.add(filter);
             request.setFilters(filters);
         }
+    }
+
+    private HouseholdRoleEntity setRoleUser(HouseholdEntity household){
+        HouseholdRoleEntity householdRoleEntity = new HouseholdRoleEntity()
+                .setRole(new RoleEntity().setId(USER_ID))
+                .setHousehold(household);
+        return householdRoleEntity;
     }
 
 

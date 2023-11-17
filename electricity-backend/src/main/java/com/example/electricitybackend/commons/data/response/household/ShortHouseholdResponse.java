@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 public class ShortHouseholdResponse {
     private Integer id;
+    private String username;
     private String householdName;
     private String address;
     private String phoneNumber;

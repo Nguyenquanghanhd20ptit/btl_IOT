@@ -21,4 +21,7 @@ public interface HouseholdRepository extends JpaRepository<HouseholdEntity, Inte
 
     @Query("select h from  HouseholdEntity  h where h.meterSerialNumber = ?1")
     Optional<HouseholdEntity> getHouseholdByMeterSerial(String meterSerial);
+
+    @Query("select h from  HouseholdEntity  h where h.username = ?1")
+    Optional<HouseholdEntity> getHouseholdByUsername(String username);
 }

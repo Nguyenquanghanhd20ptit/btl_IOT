@@ -16,6 +16,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class HouseholdResponse {
     private Integer id;
+    private String username;
     private String householdName;
     private String address;
     private String phoneNumber;

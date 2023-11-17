@@ -13,6 +13,28 @@
     <title>Hóa Đơn</title>
   </head>
   <body>
+    <div class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="/images/EVN1.png" alt="EVN Logo" />
+        </div>
+        <div class="slogan">
+          <h1>Thống kê tiền điện</h1>
+        </div>
+      </div>
+      <div>
+        <nav>
+          <ul class="button-header">
+            <li class="button-header-item">
+              <a href="http://127.0.0.1:5500/html/chart.html">Trang Chủ</a>
+            </li>
+            <li class="button-header-item">
+              <a href="http://127.0.0.1:5500/html/thongke.html">Thống Kê</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
     <div id="invoice">
       <div class="header">
         <h1>Hóa Đơn Tiền điện</h1>
@@ -38,6 +60,7 @@
       <div class="total" id="total-money"></div>
     </div>
     <button onclick="downloadInvoice()">Tải xuống Hóa Đơn</button>
+    <script src="/js/mainLogin.js"></script>
     <script src="/js/constant.js"></script>
     <script src="/js/invoice.js"></script>
   </body>

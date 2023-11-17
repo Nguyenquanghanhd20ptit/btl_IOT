@@ -16,6 +16,8 @@ public class HouseholdEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String username;
+    private String password;
     private String householdName;
     private String address;
     private String phoneNumber;

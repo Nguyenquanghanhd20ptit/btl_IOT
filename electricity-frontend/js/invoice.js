@@ -3,7 +3,13 @@ var householdId = url.searchParams.get('id');
 
 function getInvoice(){
     fetch(hostConstant + `/api/v1/consumption/bill/${householdId}`, {method: 'GET'})
-    .then(response => response.json())
+    .then((res) => {
+        if (res.ok) {
+            return res.json();
+        } else {
+            return res.text(); 
+        }
+    })
     .then(data => {
         console.log('API trả về khi trang được tải:', data);
         if (typeof data === "string") {

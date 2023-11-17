@@ -10,9 +10,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,7 +30,12 @@ public class HouseholdController {
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = HouseholdResponse.class))})
     @ApiResponse(responseCode = "400", description = "bad-request", content = @Content)
     @PostMapping("")
-    public ResponseEntity<?> addHousehold(@RequestBody HouseholdRequest request){
+    public ResponseEntity<?> addHousehold(@RequestBody @Valid HouseholdRequest request,
+                                          BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            String errorMessage = bindingResult.getFieldError().getDefaultMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+        }
         return householdService.addHouseHold(request);
     }
 
@@ -37,7 +45,12 @@ public class HouseholdController {
     @ApiResponse(responseCode = "400", description = "bad-request", content = @Content)
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateHousehold(@PathVariable("id") Integer id,
-                                             @RequestBody HouseholdRequest request){
+                                             @RequestBody HouseholdRequest request,
+                                             BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            String errorMessage = bindingResult.getFieldError().getDefaultMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+        }
         return householdService.updateHoseHold(id,request);
     }
 

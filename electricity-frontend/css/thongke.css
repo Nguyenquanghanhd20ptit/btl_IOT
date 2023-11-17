@@ -1,3 +1,28 @@
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+.button-header {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .button-header-item {
+    margin-top: 20px;
+    margin-right: 50px;
+    padding: 12px 24px;
+    background-color: #cdebff;
+    background-size: 30px;
+  }
+  .button-header-item a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px; 
+  }
+  
+
 body {
     font-family: Arial, sans-serif;
     background-color: #fff;
@@ -23,6 +48,7 @@ body {
     align-items: center;
     padding: 20px 0;
     margin-left: 50px;
+    justify-content: space-between;
 }
 
 .logo {

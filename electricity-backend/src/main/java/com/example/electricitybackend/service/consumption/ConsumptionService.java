@@ -36,11 +36,14 @@ public class ConsumptionService {
         if(opt.isEmpty()) return ResponseEntity.internalServerError().body(METER_SERIAL_NOT_EXIST);
         HouseholdEntity household = opt.get();
         Optional<Integer> id =  consumptionRepository.findMaxConsumptionId(household.getId());
-        ConsumptionEntity consumptionEntity = consumpitonMapper.toEntity(request);;
+        ConsumptionEntity consumptionEntity = consumpitonMapper.toEntity(request);
         if(id.isEmpty()) {
             consumpitonMapper.toConsumptionEntity(consumptionEntity,null,request);
         }else {
             ConsumptionEntity consumptionPrevious = consumptionRepository.findById(id.get()).get();
+            if(consumptionPrevious.getCurrentReading() > consumptionEntity.getCurrentReading()){
+                return ResponseEntity.internalServerError().body("Dữ liệu chuyền vào không hợp lệ");
+            }
             consumpitonMapper.toConsumptionEntity(consumptionEntity,consumptionPrevious,request);
         }
         consumptionEntity.setHousehold(new HouseholdEntity().setId(household.getId()));
