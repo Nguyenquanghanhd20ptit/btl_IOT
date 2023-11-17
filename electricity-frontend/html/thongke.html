@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>CHART</title>
     <link rel="stylesheet" href="/css/thongke.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -27,7 +29,9 @@
         <div class="chart-container">
             <div class="total-household">
                 <h2 class="chart-name">Danh sách hộ gia đình</h2>
-            <div id="total"> <h2>total</h2></div>
+                <div id="total">
+                    <h2>total</h2>
+                </div>
             </div>
             <table id="userTable">
                 <thead>
@@ -59,9 +63,22 @@
         </div>
     </div>
 
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h4>Chỉnh sửa thông tin Hộ gia đình</h4>
+            <input type="text" id="editUserName" placeholder="Tên người dùng">
+            <input type="text" id="editUserPhone" placeholder="Số điện thoại">
+            <input type="text" id="editUserAddress" placeholder="Địa chỉ">
+            <button onclick="performUpdate()">Cập nhật</button>
+            <button onclick="closeEditModal()">Hủy</button>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="/js//constant.js"></script>
     <script src="/js/thongke.js"> </script>
 </body>
+
 </html>
