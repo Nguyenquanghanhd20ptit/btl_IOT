@@ -20,6 +20,7 @@ public class HouseholdRequest {
     private String confirmPassword;
     @NotBlank(message = "tên hộ gia đình không được để trống")
     private String householdName;
+    @NotBlank(message = "địa chỉ gia đình không được để trống")
     private String address;
     @Pattern(regexp = PHONE_NUMBER_PATTERN,message = "số điện thoại không đúng định dạng")
     private String phoneNumber;

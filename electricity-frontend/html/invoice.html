@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/invoice.css" />
+    <link rel="stylesheet" href="/css/Style5.css">
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
       integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
@@ -13,29 +14,49 @@
     <title>Hóa Đơn</title>
   </head>
   <body>
-    <div class="header">
-      <div class="header-content">
-        <div class="logo">
-          <img src="/images/EVN1.png" alt="EVN Logo" />
-        </div>
-        <div class="slogan">
-          <h1>Thống kê tiền điện</h1>
-        </div>
-      </div>
-      <div>
-        <nav>
-          <ul class="button-header">
-            <li class="button-header-item">
-              <a href="http://127.0.0.1:5500/html/chart.html">Trang Chủ</a>
+    <div id="invoice">
+      <header>
+          
+        <div class="dieu-huong">
+    
+          <div class="thung-chua">
+            <ul class="dieu-huong_trai">
+              
+              <li class="dieu-huong_trai_item">
+                <a href="/html/chart.html">
+                  Trang chủ
+                </a>
+              </li>
+              <li class="dieu-huong_trai_item">
+                <a href="/html/thongke.html">
+                    Thống Kê
+                </a>
+              </li>
+              <li class="dieu-huong_trai_item">
+                
+          </div>
+    
+            
+          <ul class="dieu-huong_phai">
+            <li class="dieu-huong_phai_item">
+             
+              <img src="/images/Icon/Icon-alarm.png" alt="">
             </li>
-            <li class="button-header-item">
-              <a href="http://127.0.0.1:5500/html/thongke.html">Thống Kê</a>
+            <li>
+                <Form id="form_tim_kiem" action="tim_kiem" method="GET" style="display: flex;" >
+                  <input type ="text" id ="tim_kiem"    cols="30" rows="10" placeholder = "Viết bình luận..." name ="tim_kiem"></textarea>
+                  <li class="dieu-huong_phai_item"onclick= "showBoxFind()">
+                    <img id="icon_tim_kiem" src="/images/Icon/icon-search.png" alt="">
+                  </li>
+                </Form>
+            </li>
+            <li class="dieu-huong_phai_item">
+              <img class="dieu-huong_phai_item dieu-huong_phai_anh_user" src="/images/Icon/User_Circle.jpg" alt="">
             </li>
           </ul>
-        </nav>
-      </div>
-    </div>
-    <div id="invoice">
+        </div>
+      </header>
+      <div class="container2">
       <div class="header">
         <h1>Hóa Đơn Tiền điện</h1>
         <div id="date"></div>
@@ -58,6 +79,7 @@
         </table>
       </div>
       <div class="total" id="total-money"></div>
+    </div>
     </div>
     <button onclick="downloadInvoice()">Tải xuống Hóa Đơn</button>
     <script src="/js/mainLogin.js"></script>

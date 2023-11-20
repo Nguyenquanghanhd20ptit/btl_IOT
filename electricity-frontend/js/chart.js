@@ -219,3 +219,4 @@ function drawChart(apiData) {
     totalConsumption + " kWh";
   console.log(totalConsumption);
 }
+

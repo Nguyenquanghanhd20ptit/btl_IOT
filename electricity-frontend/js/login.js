@@ -7,7 +7,7 @@ function performLogin(){
         "username": username,
         "password": password,
     };
-    fetch("http://localhost:8080/api/v1/authentication/admin/login", {
+    fetch(hostConstant+"/api/v1/authentication/admin/login", {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {

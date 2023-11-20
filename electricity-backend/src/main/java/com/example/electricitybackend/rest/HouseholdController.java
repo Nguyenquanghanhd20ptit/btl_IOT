@@ -45,7 +45,7 @@ public class HouseholdController {
     @ApiResponse(responseCode = "400", description = "bad-request", content = @Content)
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateHousehold(@PathVariable("id") Integer id,
-                                             @RequestBody HouseholdRequest request,
+                                             @RequestBody @Valid  HouseholdRequest request,
                                              BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             String errorMessage = bindingResult.getFieldError().getDefaultMessage();

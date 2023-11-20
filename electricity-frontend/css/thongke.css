@@ -1,28 +1,11 @@
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-.button-header {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+.error{
+    color: brown;
   }
   
-  .button-header-item {
-    margin-top: 20px;
-    margin-right: 50px;
-    padding: 12px 24px;
-    background-color: #cdebff;
-    background-size: 30px;
+.container2{
+    box-sizing: border-box;
+    padding: 20px;
   }
-  .button-header-item a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px; 
-  }
-  
-
 body {
     font-family: Arial, sans-serif;
     background-color: #fff;
@@ -36,7 +19,7 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    /* padding: 20px; */
     text-align: center;
 }
 .control {
@@ -48,7 +31,6 @@ body {
     align-items: center;
     padding: 20px 0;
     margin-left: 50px;
-    justify-content: space-between;
 }
 
 .logo {
@@ -83,6 +65,7 @@ body {
 }
 
 .year-dropdown button {
+    box-sizing: border-box;
     font-size: 16px;
     background-color: #007BFF;
     color: #fff;
@@ -92,7 +75,7 @@ body {
     border-radius: 5px;
 }
 
-.year-options, .search-container {
+ .year-options, .search-container {
     margin-right: 80px;
 }
 
@@ -128,7 +111,7 @@ body {
     display: flex;
     text-align: right;
     align-items: center;
-    margin-left: 430px;
+    margin-left: 400px;
     
 }
 .add-household button {
@@ -190,7 +173,7 @@ th {
     padding: 20px;
 }
 
-.modal input[type="text"] {
+.modal input {
     font-size: 16px;
     padding: 10px;
     width: 100%;

@@ -10,9 +10,6 @@ a{
 a:hover{
   color: orangered;
 }
-p{
-  color: #9b9b9b;
-}
 li{
   display:  list-item;
   text-align: -webkit-match-parent;
