@@ -116,7 +116,7 @@ if (!checkOptionTime) {
         page_size: 500,
         sort: [
           {
-            property: "electricityMonth",
+            property: "id",
             direction: "asc",
           },
         ],
@@ -166,7 +166,7 @@ function drawChart(apiData) {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
     console.log(date);
-    chartLabels.push("Tháng " + month + "/" + year);
+    chartLabels.push("Biểu đồ " + item.id);
     chartDataValues.push(item.total_consumption);
   });
   console.log(chartLabels);

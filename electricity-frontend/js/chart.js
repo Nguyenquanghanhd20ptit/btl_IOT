@@ -60,7 +60,7 @@ document
           page_size: 500,
           sort: [
             {
-              property: "electricityMonth",
+              property: "id",
               direction: "asc",
             },
           ],
@@ -107,7 +107,7 @@ if (!checkOptionTime) {
         page_size: 500,
         sort: [
           {
-            property: "electricityMonth",
+            property: "id",
             direction: "asc",
           },
         ],
@@ -140,13 +140,14 @@ var myChart;
 function drawChart(apiData) {
   var chartLabels = [];
   var chartDataValues = [];
-
+  var count = 0;
   apiData.forEach(function (item) {
+    count++;
     var date = new Date(item.electricity_month);
     var month = date.getDate(); // đang để thời gian ngược 1/2/2023 nó sẽ hiểu 01 là tháng vì kiểu date nó đặt tháng ở đầu
     var year = date.getFullYear();
     console.log(date);
-    chartLabels.push("Tháng " + month + "/" + year);
+    chartLabels.push("Biểu đồ " + count);
     chartDataValues.push(item.total_consumption);
   });
   console.log(chartLabels);

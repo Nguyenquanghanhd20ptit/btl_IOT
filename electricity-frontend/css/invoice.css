@@ -31,14 +31,6 @@
 }
 
 
-.header {
-    display: flex;
-    align-items: center;
-    padding: 20px 0;
-    margin-left: 50px;
-    justify-content:space-between;
-  }
-  
   .logo {
     width: 100px;
   }
