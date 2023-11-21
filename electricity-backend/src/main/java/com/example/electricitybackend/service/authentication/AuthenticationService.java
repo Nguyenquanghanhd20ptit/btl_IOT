@@ -2,8 +2,10 @@ package com.example.electricitybackend.service.authentication;
 
 import com.example.electricitybackend.commons.data.entity.HouseholdEntity;
 import com.example.electricitybackend.commons.data.entity.HouseholdRoleEntity;
+import com.example.electricitybackend.commons.data.mapper.household.HouseholdMapper;
 import com.example.electricitybackend.commons.data.mapper.household.ShortHouseholdMapper;
 import com.example.electricitybackend.commons.data.request.LoginRequest;
+import com.example.electricitybackend.commons.data.response.household.HouseholdResponse;
 import com.example.electricitybackend.commons.data.response.household.ShortHouseholdResponse;
 import com.example.electricitybackend.db.postgre.repository.HouseholdRepository;
 import com.example.electricitybackend.db.postgre.repository.HouseholdRoleRepository;
@@ -23,7 +25,7 @@ public class AuthenticationService {
     @Autowired
     private HouseholdRepository householdRepository;
     @Autowired
-    private ShortHouseholdMapper householdMapper;
+    private HouseholdMapper householdMapper;
     @Autowired
     private HouseholdRoleRepository householdRoleRepository;
 
@@ -38,7 +40,7 @@ public class AuthenticationService {
         if (checkLoginAdmin && householdRoleEntity.getRole().getId() == USER_ID) {
             return ResponseEntity.internalServerError().body(NOT_ROLE_ACCESS);
         }
-        ShortHouseholdResponse response = householdMapper.toResponse(householdEntity);
+        HouseholdResponse response = householdMapper.toResponse(householdEntity);
         return ResponseEntity.ok(response);
     }
 }
