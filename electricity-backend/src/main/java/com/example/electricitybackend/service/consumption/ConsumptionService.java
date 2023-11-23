@@ -41,7 +41,7 @@ public class ConsumptionService {
             consumpitonMapper.toConsumptionEntity(consumptionEntity,null,request);
         }else {
             ConsumptionEntity consumptionPrevious = consumptionRepository.findById(id.get()).get();
-            if(consumptionPrevious.getCurrentReading() > consumptionEntity.getCurrentReading()){
+            if(consumptionPrevious.getCurrentReading() >= consumptionEntity.getCurrentReading()){
                 return ResponseEntity.internalServerError().body("Dữ liệu chuyền vào không hợp lệ");
             }
             consumpitonMapper.toConsumptionEntity(consumptionEntity,consumptionPrevious,request);

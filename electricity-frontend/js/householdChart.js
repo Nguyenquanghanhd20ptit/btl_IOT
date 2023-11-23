@@ -160,13 +160,14 @@ function drawChart(apiData) {
     <p><strong>Địa chỉ:</strong><span id="address"> ${household.address}</span></p>
 `;
   householdImfo.appendChild(householdRow);
-
+  var count = 0;
   consumptions.forEach(function (item) {
     var date = parseDateString(item.electricity_month);
+    count++;
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
     console.log(date);
-    chartLabels.push("Biểu đồ " + item.id);
+    chartLabels.push("Biểu đồ " + count);
     chartDataValues.push(item.total_consumption);
   });
   console.log(chartLabels);
