@@ -1,19 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/invoice.css" />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
-      integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/invoice.css" />
+  <link rel="stylesheet" href="/css/Style5.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+    integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
-    <title>Hóa Đơn</title>
-  </head>
-  <body>
-    <div id="invoice">
+  <title>Hóa Đơn</title>
+</head>
+
+<body>
+  <div id="invoice">
+    <header>
+      <div class="dieu-huong">
+        <div class="thung-chua">
+          <ul class="dieu-huong_trai">
+            <li class="dieu-huong_trai_item">
+              <a href="/html/chart.html">
+                Trang chủ
+              </a>
+            </li>
+            <li class="dieu-huong_trai_item">
+              <a href="/html/thongke.html">
+                Thống Kê
+              </a>
+            </li>
+          </ul>
+        </div>
+        <ul class="dieu-huong_phai">
+          <li class="dieu-huong_phai_item">
+            <img src="/images/Icon/Icon-alarm.png" alt="">
+          </li>
+          <li>
+            <form id="form_tim_kiem" action="tim_kiem" method="GET" style="display: flex;">
+              <input type="text" id="tim_kiem" cols="30" rows="10" placeholder="Viết bình luận..." name="tim_kiem">
+          <li class="dieu-huong_phai_item" onclick="showBoxFind()">
+            <img id="icon_tim_kiem" src="/images/Icon/icon-search.png" alt="">
+          </li>
+          </form>
+          </li>
+          <li class="dieu-huong_phai_item" id="user-dropdown">
+            <img class="dieu-huong_phai_item dieu-huong_phai_anh_user" src="/images/Icon/User_Circle.jpg" alt=""
+              onclick="toggleDropdown()">
+            <div class="dropdown-content">
+              <a href="#">
+                <i class="material-icons dropdown-icon">settings</i>
+                Cài đặt
+              </a>
+              <a href="#" onclick="logout()">
+                <i class="material-icons dropdown-icon">exit_to_app</i>
+                Đăng xuất
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <div class="container2">
       <div class="header">
         <h1>Hóa Đơn Tiền điện</h1>
         <div id="date"></div>
@@ -37,8 +85,12 @@
       </div>
       <div class="total" id="total-money"></div>
     </div>
-    <button onclick="downloadInvoice()">Tải xuống Hóa Đơn</button>
-    <script src="/js/constant.js"></script>
-    <script src="/js/invoice.js"></script>
-  </body>
+  </div>
+  <button onclick="downloadInvoice()">Tải xuống Hóa Đơn</button>
+  <script src="/js/mainLogin.js"></script>
+  <script src="/js/constant.js"></script>
+  <script src="/js/invoice.js"></script>
+  <script src="/js/header.js"></script>
+</body>
+
 </html>

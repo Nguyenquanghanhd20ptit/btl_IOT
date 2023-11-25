@@ -237,23 +237,30 @@ function performUpdate(householdId) {
               'Content-Type': 'application/json'
           }
       })
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error('HTTP error! Status: ${response.status}');
-              }
-              return response.json();
-          })
-          .then(data => {
-              console.log('Household updated successfully', data);
+      .then((res) => {
+        if (res.ok) {
+            return res.json();
+        } else {
+            return res.text(); 
+        }
+    })
+        .then(data => {
 
-              searchHouseholds(currentPage);
+        if (typeof data === "string") {
+            document.getElementById("update-household-error").textContent = data;
+        }
+        else{
+            console.log('Household updated successfully', data);
 
-              closeEditModal();
-          })
-          .catch(error => {
-              console.error('Error updating household:', error.message);
-              // Xử lý lỗi và thông báo cho người dùng nếu cần
-          });
+            searchHouseholds(currentPage);
+
+            closeEditModal();
+        }
+        })
+        .catch(error => {
+            console.error('Error updating household:', error.message);
+            // Xử lý lỗi và thông báo cho người dùng nếu cần
+        });
   } else {
       alert("Vui lòng điền đầy đủ thông tin hộ gia đình.");
   }
@@ -295,12 +302,18 @@ function deleteItem(householdId) {
     const householdName = document.getElementById("newHouseholdName").value;
     const householdPhone = document.getElementById("newHouseholdPhone").value;
     const householdAddress = document.getElementById("newHouseholdAddress").value;
+    const householdUsername = document.getElementById("newHouseholdUsername").value;
+    const householdPassword = document.getElementById("newHouseholdPassword").value;
+    const householdConfirmPassword = document.getElementById("newHouseholdConfirmPassword").value;
 
     if (householdName && householdPhone && householdAddress) {
         const requestBody = {
             "household_name": householdName,
             "address": householdAddress,
-            "phone_number": householdPhone
+            "phone_number": householdPhone,
+            "username":householdUsername,
+            "password": householdPassword,
+            "confirm_password" : householdConfirmPassword
         };
 
         fetch(hostConstant + '/api/v1/household', {
@@ -310,11 +323,21 @@ function deleteItem(householdId) {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.text(); 
+            }
+        })
         .then(newHousehold => {
-            // Thêm hộ gia đình mới vào danh sách và cập nhật trang
-            updateHouseholdsList(newHousehold);
-            closeModal();
+            if (typeof newHousehold === "string") {
+                document.getElementById("add-household-error").textContent = newHousehold;
+            }
+            else{
+                updateHouseholdsList(newHousehold);
+                closeModal();
+            }
         })
         .catch(error => console.error('Error adding new household:', error));
     } else {

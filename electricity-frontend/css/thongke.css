@@ -1,3 +1,11 @@
+.error{
+    color: brown;
+  }
+  
+.container2{
+    box-sizing: border-box;
+    padding: 20px;
+  }
 body {
     font-family: Arial, sans-serif;
     background-color: #fff;
@@ -11,7 +19,7 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    /* padding: 20px; */
     text-align: center;
 }
 .control {
@@ -57,6 +65,7 @@ body {
 }
 
 .year-dropdown button {
+    box-sizing: border-box;
     font-size: 16px;
     background-color: #007BFF;
     color: #fff;
@@ -66,7 +75,7 @@ body {
     border-radius: 5px;
 }
 
-.year-options, .search-container {
+ .year-options, .search-container {
     margin-right: 80px;
 }
 
@@ -102,7 +111,7 @@ body {
     display: flex;
     text-align: right;
     align-items: center;
-    margin-left: 430px;
+    margin-left: 400px;
     
 }
 .add-household button {
@@ -164,7 +173,7 @@ th {
     padding: 20px;
 }
 
-.modal input[type="text"] {
+.modal input {
     font-size: 16px;
     padding: 10px;
     width: 100%;

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập/Đăng ký</title>
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <div class="icon">
+            
+        </div>
+        <h2>Đăng nhập tài khoản Admin</h2>
+        <form id = "login">
+            <label for="username">Tài khoản:</label>
+            <input type="text" id="username" name="username" placeholder="Nhập tên tài khoản của bạn">
+
+          <label for="password">Mật khẩu:</label>
+          <input type="password" id="password" name="password" placeholder="Mật Khẩu" minlength="8" >
+          <p id= "login-error" class="login-error"></p>
+          <div class="sub"><button type="button" onclick="performLogin()">Đăng nhập</button></div>
+          <p class="forgot-password">Bạn quyên mật khẩu? <a href="#">lấy lại mật khẩu</a></p>
+        </form>
+      </div>
+    </div>
+    <script src="/js/constant.js"></script>
+    <script src="/js/login.js"></script>
+  </body>
+</html>

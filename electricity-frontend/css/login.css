@@ -1,0 +1,78 @@
+.login-error{
+  color: brown;
+}
+
+
+.login-container, .register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+  }
+  
+  /* style cho khung đăng nhập */
+  .login-box, .register-box {
+    border: 2px solid #ddd;
+    padding: 20px;
+    width: 300px;
+    background-color: rgb(32, 32, 32);
+    color: #fff;
+  }
+  
+  /* style cho tiêu đề */
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-bottom: 80px;
+    font-size: 27px;
+  }
+  
+  /* style cho các trường nhập */
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    height: 48px;
+    padding: 16px;
+    font-family: inherit;
+    background: #111;
+    color: #fff;
+    border: solid black;
+  }
+  .sub {
+    text-align: center;
+  }
+  button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    background: #2c2c2e;
+    border-radius: 8px;
+    height: 48px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .forgot-password {
+    margin-top: 40px;
+    margin-left: 28px;
+   
+  }
+  a {
+    color: coral;
+    text-decoration: none;
+}
+
+  
+  /* style cho nút đăng nhập/
+  

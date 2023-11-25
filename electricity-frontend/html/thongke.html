@@ -2,83 +2,140 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>CHART</title>
-    <link rel="stylesheet" href="/css/thongke.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <title>CHART</title>
+  <link rel="stylesheet" href="/css/thongke.css">
+  <link rel="stylesheet" href="/css/Style5.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <img src="/images/EVN1.png" alt="EVN Logo">
-            </div>
-            <div class="slogan">
-                <h1>Thống kê tiền điện</h1>
-            </div>
-        </div>
-        <div class="control">
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên">
-                <button onclick="searchHouseholds()">Tìm kiếm</button>
-            </div>
-            <div class="add-household"> <button onclick="openModal()">Thêm hộ gia mới</button></div>
-        </div>
 
-        <div class="chart-container">
-            <div class="total-household">
-                <h2 class="chart-name">Danh sách hộ gia đình</h2>
-                <div id="total">
-                    <h2>total</h2>
-                </div>
-            </div>
-            <table id="userTable">
-                <thead>
-                    <tr>
-                        <th>Công Tơ Số</th>
-                        <th>Họ Và Tên</th>
-                        <th>Số Điện Thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Ngày Tạo</th>
-                        <th>Tùy chọn</th>
-                    </tr>
-                </thead>
-                <tbody id="households-body"></tbody>
-            </table>
-            <div id="pagination"></div>
+  <div class="container">
+    <header>
+      <div class="dieu-huong">
+        <div class="thung-chua">
+          <ul class="dieu-huong_trai">
+            <li class="dieu-huong_trai_item">
+              <a href="/html/chart.html">
+                Trang chủ
+              </a>
+            </li>
+            <li class="dieu-huong_trai_item">
+              <a href="/html/thongke.html">
+                Thống Kê
+              </a>
+            </li>
+          </ul>
         </div>
+        <ul class="dieu-huong_phai">
+          <li class="dieu-huong_phai_item">
+            <img src="/images/Icon/Icon-alarm.png" alt="">
+          </li>
+          <li>
+            <form id="form_tim_kiem" action="tim_kiem" method="GET" style="display: flex;">
+              <input type="text" id="tim_kiem" cols="30" rows="10" placeholder="Viết bình luận..." name="tim_kiem">
+          <li class="dieu-huong_phai_item" onclick="showBoxFind()">
+            <img id="icon_tim_kiem" src="/images/Icon/icon-search.png" alt="">
+          </li>
+          </form>
+          </li>
+          <li class="dieu-huong_phai_item" id="user-dropdown">
+            <img class="dieu-huong_phai_item dieu-huong_phai_anh_user" src="/images/Icon/User_Circle.jpg" alt=""
+              onclick="toggleDropdown()">
+            <div class="dropdown-content">
+              <a href="#">
+                <i class="material-icons dropdown-icon">settings</i>
+                Cài đặt
+              </a>
+              <a href="#" onclick="logout()">
+                <i class="material-icons dropdown-icon">exit_to_app</i>
+                Đăng xuất
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <div class="container2">
+      <div class="header">
+        <div class="logo">
+          <img src="/images/EVN1.png" alt="EVN Logo">
+        </div>
+        <div class="slogan">
+          <h1>Thống kê tiền điện</h1>
+        </div>
+      </div>
+      <div class="control">
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên">
+          <button onclick="searchHouseholds()">Tìm kiếm</button>
+        </div>
+        <div class="add-household"> <button onclick="openModal()">Thêm hộ gia đình</button></div>
+      </div>
+
+      <div class="chart-container">
+        <div class="total-household">
+          <h2 class="chart-name">Danh sách hộ gia đình</h2>
+          <div id="total">
+            <h2>total</h2>
+          </div>
+        </div>
+        <table id="userTable">
+          <thead>
+            <tr>
+              <th>Công Tơ Số</th>
+              <th>Họ Và Tên</th>
+              <th>Số Điện Thoại</th>
+              <th>Địa chỉ</th>
+              <th>Ngày Tạo</th>
+              <th>Tùy chọn</th>
+            </tr>
+          </thead>
+          <tbody id="households-body"></tbody>
+        </table>
+        <div id="pagination"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Modal dialog for adding a new user -->
-    <!-- Modal dialog for adding a new household -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <h3>Thêm hộ gia đình mới</h3>
-            <input type="text" id="newHouseholdName" placeholder="Tên hộ gia đình">
-            <input type="text" id="newHouseholdPhone" placeholder="Số điện thoại">
-            <input type="text" id="newHouseholdAddress" placeholder="Địa chỉ">
-            <button onclick="addNewHousehold()">Thêm</button>
-            <button onclick="closeModal()">Hủy</button>
-        </div>
+  <!-- Modal dialog for adding a new user -->
+  <!-- Modal dialog for adding a new household -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <h3>Thêm hộ gia đình mới</h3>
+      <input type="text" id="newHouseholdName" placeholder="Tên hộ gia đình">
+      <input type="text" id="newHouseholdPhone" placeholder="Số điện thoại">
+      <input type="text" id="newHouseholdAddress" placeholder="Địa chỉ">
+      <input type="text" id="newHouseholdUsername" placeholder="Tên tài khoản">
+      <input type="password" id="newHouseholdPassword" placeholder="mật khẩu">
+      <input type="password" id="newHouseholdConfirmPassword" placeholder="nhập lại mật khẩu">
+      <p id="add-household-error" class="error"></p>
+      <button onclick="addNewHousehold()">Thêm</button>
+      <button onclick="closeModal()">Hủy</button>
     </div>
+  </div>
 
 
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <h4>Chỉnh sửa thông tin Hộ gia đình</h4>
-            <input type="text" id="editUserName" placeholder="Tên người dùng">
-            <input type="text" id="editUserPhone" placeholder="Số điện thoại">
-            <input type="text" id="editUserAddress" placeholder="Địa chỉ">
-            <button onclick="performUpdate()">Cập nhật</button>
-            <button onclick="closeEditModal()">Hủy</button>
-        </div>
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <h4>Chỉnh sửa thông tin Hộ gia đình</h4>
+      <input type="text" id="editUserName" placeholder="Tên người dùng">
+      <input type="text" id="editUserPhone" placeholder="Số điện thoại">
+      <input type="text" id="editUserAddress" placeholder="Địa chỉ">
+      <p id="update-household-error" class="error"></p>
+      <button onclick="performUpdate()">Cập nhật</button>
+      <button onclick="closeEditModal()">Hủy</button>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script src="/js//constant.js"></script>
-    <script src="/js/thongke.js"> </script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script src="/js/mainLogin.js"></script>
+  <script src="/js//constant.js"></script>
+  <script src="/js/thongke.js"> </script>
+  <script src="/js/header.js"></script>
 </body>
 
 </html>

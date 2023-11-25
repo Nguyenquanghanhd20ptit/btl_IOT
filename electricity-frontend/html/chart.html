@@ -2,47 +2,102 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>CHART</title>
-    <link rel="stylesheet" href="/css/chart.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <meta charset="UTF-8" />
+  <title>CHART</title>
+  <link rel="stylesheet" href="/css/chart.css" />
+  <link rel="stylesheet" href="/css/Style5.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <img src="/images/EVN1.png" alt="EVN Logo">
-            </div>
-            <div class="slogan">
-                <h1>Thống kê tiền điện</h1>
-            </div>
-        </div>
-        <div class="year-options">
-            <form id="timeForm">
-                <label for="startDatePicker">Ngày Bắt Đầu:</label>
-                <input type="text" id="startDatePicker" placeholder="Chọn ngày bắt đầu" />
-                <input type="hidden" id="startTime" name="startTime" />
-                <br />
-                <label for="endDatePicker">Ngày Kết Thúc:</label>
-                <input type="text" id="endDatePicker" placeholder="Chọn ngày kết thúc" />
-                <input type="hidden" id="endTime" name="endTime" />
-                <br />
-                <input type="submit" value="Xem biểu đồ" />
-            </form>
 
-            <div class="total-consumption">Tổng lượng điện tiêu thụ: <span id="totalConsumption">0 kWh</span>
+  <div class="container">
+    <header>
+      <div class="dieu-huong">
+        <div class="thung-chua">
+          <ul class="dieu-huong_trai">
+            <li class="dieu-huong_trai_item">
+              <a href="/html/chart.html">
+                Trang chủ
+              </a>
+            </li>
+            <li class="dieu-huong_trai_item">
+              <a href="/html/thongke.html">
+                Thống Kê
+              </a>
+            </li>
+          </ul>
+        </div>
+        <ul class="dieu-huong_phai">
+          <li class="dieu-huong_phai_item">
+            <img src="/images/Icon/Icon-alarm.png" alt="">
+          </li>
+          <li>
+            <form id="form_tim_kiem" action="tim_kiem" method="GET" style="display: flex;">
+              <input type="text" id="tim_kiem" cols="30" rows="10" placeholder="Viết bình luận..." name="tim_kiem">
+          <li class="dieu-huong_phai_item" onclick="showBoxFind()">
+            <img id="icon_tim_kiem" src="/images/Icon/icon-search.png" alt="">
+          </li>
+          </form>
+          </li>
+          <li class="dieu-huong_phai_item" id="user-dropdown">
+            <img class="dieu-huong_phai_item dieu-huong_phai_anh_user" src="/images/Icon/User_Circle.jpg" alt=""
+              onclick="toggleDropdown()">
+            <div class="dropdown-content">
+              <a href="#">
+                <i class="material-icons dropdown-icon">settings</i>
+                Cài đặt
+              </a>
+              <a href="#" onclick="logout()">
+                <i class="material-icons dropdown-icon">exit_to_app</i>
+                Đăng xuất
+              </a>
             </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="container2">
+      <div class="header">
+        <div class="logo">
+          <img src="/images/EVN1.png" alt="EVN Logo">
         </div>
-        <div class="chart-container">
-            <canvas id="myChart" width="400" height="200"></canvas>
-            <div id="chart-name">Biểu đồ tiêu thụ điện theo tháng năm XXXX</div>
+        <div class="slogan">
+          <h1>Thống kê tiền điện</h1>
         </div>
+      </div>
+      <div class="year-options">
+        <form id="timeForm">
+          <label for="startDatePicker">Ngày Bắt Đầu:</label>
+          <input type="text" id="startDatePicker" placeholder="Chọn ngày bắt đầu" />
+          <input type="hidden" id="startTime" name="startTime" />
+          <br />
+          <label for="endDatePicker">Ngày Kết Thúc:</label>
+          <input type="text" id="endDatePicker" placeholder="Chọn ngày kết thúc" />
+          <input type="hidden" id="endTime" name="endTime" />
+          <br />
+          <input type="submit" value="Xem biểu đồ" />
+        </form>
+
+        <div class="total-consumption">
+          Tổng lượng điện tiêu thụ: <span id="totalConsumption">0 kWh</span>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="myChart" width="400" height="200"></canvas>
+        <div id="chart-name">Biểu đồ tiêu thụ điện theo tháng năm XXXX</div>
+      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/js/constant.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="/js/chart.js"></script>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/js/mainLogin.js"></script>
+  <script src="/js/constant.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="/js/chart.js"></script>
+  <script src="/js/header.js"></script>
 </body>
 
 </html>
