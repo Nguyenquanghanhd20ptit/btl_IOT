@@ -97,6 +97,7 @@ public class HouseholdService {
             return ResponseEntity.badRequest().body(ID_NOT_EXIST);
         }
         consumptionRepository.deleteByHouseholdId(id);
+        householdRoleRepository.deleteByHouseholdId(id);
         householdRepository.deleteById(id);
         return ResponseEntity.ok(new MessageResponse().setMessage("delete success"));
     }
